@@ -1,6 +1,7 @@
 import 'package:dlalat_quaran_new/models/chat_message_entity.dart';
 import 'package:dlalat_quaran_new/ui/chat/helpers/clean_reply.dart';
 import 'package:dlalat_quaran_new/utils/assets.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -20,7 +21,7 @@ class ChatBubble extends StatelessWidget {
         isUser
             ? CircleAvatar(child: Icon(Icons.person, color: Colors.white, size: 16))
             : CircleAvatar(
-              backgroundColor: Colors.green.withOpacity(0.05),
+              backgroundColor: primaryColor.withOpacity(0.05),
               child: Image.asset(AssetsData.logoSmall, height: 30),
             );
 
@@ -39,7 +40,7 @@ class ChatBubble extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
-                    color: isUser ? Colors.green[200] : Colors.grey[300],
+                    color: isUser ? primaryColor.withOpacity(0.3) : Colors.grey[300],
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child:
@@ -95,7 +96,7 @@ class ChatBubble extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: isUser ? Colors.green : Colors.grey,
+                          color: isUser ? primaryColor : Colors.grey,
                         ),
                         padding: EdgeInsets.all(10),
                         child: Icon(MdiIcons.share, size: 25, color: Colors.white),

@@ -1,3 +1,4 @@
+import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 typedef OnSendMessage = void Function(String text);
@@ -31,7 +32,7 @@ class MessageInput extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.send, color: Colors.green),
+            icon: const Icon(Icons.send, color: primaryColor),
             onPressed: () {
               final text = controller.text.trim();
               if (text.isNotEmpty) {

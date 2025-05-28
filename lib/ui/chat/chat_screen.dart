@@ -2,6 +2,7 @@ import 'package:dlalat_quaran_new/controllers/chat_controller.dart';
 import 'package:dlalat_quaran_new/ui/chat/widgets/chat_bubble.dart';
 import 'package:dlalat_quaran_new/ui/chat/widgets/chat_histroy_drawer.dart';
 import 'package:dlalat_quaran_new/ui/chat/widgets/message_input.dart';
+import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -42,8 +43,8 @@ class _ChatScreenState extends State<ChatScreen> {
           textDirection: TextDirection.rtl,
           child: SafeArea(
             child: Scaffold(
-              appBar: AppBar(title: const Text("دلالات شات"), backgroundColor: Colors.green),
-              drawer: ChatHistoryDrawer(),
+              appBar: AppBar(title: Text("دلالات شات"), backgroundColor: primaryColor),
+              endDrawer: ChatHistoryDrawer(),
               body: GetBuilder<ChatController>(
                 // listener: (context, state) {
                 // _scrollToBottom();

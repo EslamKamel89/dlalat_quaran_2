@@ -241,6 +241,7 @@ class ChatController extends GetxController {
     List<ChatMessageEntity> chatData =
         chatDataJson.map((chat) => ChatMessageEntity.fromJson(jsonDecode(chat))).toList();
     state = state.copyWith(messages: chatData, selectedConversation: selectedCoversation);
+    update();
   }
 
   void deleteConversation(String conversationId) {
