@@ -2,12 +2,10 @@ import 'package:dlalat_quaran_new/controllers/chat_controller.dart';
 import 'package:dlalat_quaran_new/models/chat_history_entity.dart';
 import 'package:dlalat_quaran_new/ui/chat/widgets/custom_text_field.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
-import 'package:dlalat_quaran_new/utils/servicle_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatHistoryDrawer extends StatefulWidget {
   const ChatHistoryDrawer({super.key});
@@ -80,20 +78,20 @@ class _ChatHistoryDrawerState extends State<ChatHistoryDrawer> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: CustomTextField("ابحث في المحادثات السابقة", searchController, ''),
             ),
-            const SizedBox(height: 16),
-            InkWell(
-              onTap: () {
-                serviceLocator<SharedPreferences>().clear();
-              },
-              child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text('clear cache', style: TextStyle(color: Colors.white)),
-              ),
-            ),
+            // const SizedBox(height: 16),
+            // InkWell(
+            //   onTap: () {
+            //     serviceLocator<SharedPreferences>().clear();
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.all(10),
+            //     decoration: BoxDecoration(
+            //       color: primaryColor,
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //     child: Text('clear cache', style: TextStyle(color: Colors.white)),
+            //   ),
+            // ),
             const SizedBox(height: 16),
 
             // Chat List
