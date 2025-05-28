@@ -1,0 +1,1 @@
+enum FontTypeEnum { meduim, large }
