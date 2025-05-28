@@ -28,17 +28,19 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter:
-    sdk: flutter
   audioplayers: ^6.4.0
   collection: null
   connectivity_plus: ^6.0.5
   country_code_picker: ^3.0.0
+  cupertino_icons: ^1.0.8
   device_info_plus: null
   device_preview: ^1.2.0
   dio: null
   dio_logging_interceptor: null
   file_picker: ^8.1.2
+  flutter:
+    sdk: flutter
+  flutter_animate: ^4.5.2
   flutter_cache_manager: null
   flutter_html: null
   flutter_launcher_icons: null
@@ -52,12 +54,14 @@ dependencies:
   google_fonts: ^4.0.4
   html_unescape: null
   intl: null
+  lottie: ^3.3.1
+  material_design_icons_flutter: ^7.0.7296
   page_view_indicators: null
   path_provider: null
   permission_handler: ^11.3.1
   scroll_to_index: null
   scrollable_positioned_list: null
-  share_plus: ^10.1.2
+  share_plus: ^11.0.0
   shared_preferences: null
   sqflite: null
   string_to_hex: ^0.2.2
@@ -65,24 +69,13 @@ dependencies:
   youtube_player_flutter: ^9.1.1
   zoom_widget: null
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-
 dev_dependencies:
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^5.0.0
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
 

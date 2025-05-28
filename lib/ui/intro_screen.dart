@@ -2,7 +2,7 @@ import 'package:dlalat_quaran_new/controllers/correct_word_controller.dart';
 import 'package:dlalat_quaran_new/controllers/similar_word_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_research.dart';
 import 'package:dlalat_quaran_new/ui/articles_screen/articles_screen.dart';
-import 'package:dlalat_quaran_new/ui/competition_screen.dart';
+import 'package:dlalat_quaran_new/ui/chat/chat_screen.dart';
 import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/read_full_sura_screen/read_full_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
@@ -47,156 +47,160 @@ class _IntroScreenState extends State<IntroScreen> {
       return Stack(
         children: [
           SplashBackground(
-              childWidget: Container(
-            padding: EdgeInsets.only(top: itemSize / 1.3),
-            child: Column(
-              children: [
-                Image.asset(
-                  logoSmall,
-                  width: scHeight / 8,
-                  height: scHeight / 8,
-                ),
-                Text(
-                  'app_name'.tr,
-                  // '',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: scHeight / 40, fontFamily: 'Almarai'),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  'introText'.tr,
-                  style: TextStyle(
-                    color: const Color(0xFFF5B45E),
-                    fontSize: scHeight / 70,
-                    fontFamily: 'Almarai',
+            childWidget: Container(
+              padding: EdgeInsets.only(top: itemSize / 1.3),
+              child: Column(
+                children: [
+                  Image.asset(logoSmall, width: scHeight / 8, height: scHeight / 8),
+                  Text(
+                    'app_name'.tr,
+                    // '',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: scHeight / 40,
+                      fontFamily: 'Almarai',
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: scHeight / 20,
-                ),
-                Stack(
-                  children: [
-                    Image.asset(
-                      _centerView(),
-                      width: scHeight / 2.8,
-                      height: scHeight / 2.3,
+                  const SizedBox(height: 8),
+                  Text(
+                    'introText'.tr,
+                    style: TextStyle(
+                      color: const Color(0xFFF5B45E),
+                      fontSize: scHeight / 70,
+                      fontFamily: 'Almarai',
                     ),
-                    Positioned(
-                      left: itemSize,
-                      top: 20,
-                      child: Container(
-                        color: Colors.blue.withOpacity(0.0),
-                        width: itemSize,
-                        height: itemSize - 20,
-                        child: GestureDetector(
-                          onTap: () {
-                            int page =
-                                GetStorage().read(savedPage).toString() == 'null' ? 0 : GetStorage().read(savedPage);
-                            Locale loca = Get.locale!;
-                            Widget destination;
-                            if (loca.languageCode == 'ar') {
-                              destination = const HomeSuraScreen();
-                            } else {
-                              destination = const HomeSuraScreen();
-                            }
-                            // ShortExplanationIndex();
-                            // Get.to(() => destination);
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => destination));
-                          },
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: scHeight / 20),
+                  Stack(
+                    children: [
+                      Image.asset(_centerView(), width: scHeight / 2.8, height: scHeight / 2.3),
+                      Positioned(
+                        left: itemSize,
+                        top: 20,
+                        child: Container(
+                          color: Colors.blue.withOpacity(0.0),
+                          width: itemSize,
+                          height: itemSize - 20,
+                          child: GestureDetector(
+                            onTap: () {
+                              int page =
+                                  GetStorage().read(savedPage).toString() == 'null'
+                                      ? 0
+                                      : GetStorage().read(savedPage);
+                              Locale loca = Get.locale!;
+                              Widget destination;
+                              if (loca.languageCode == 'ar') {
+                                destination = const HomeSuraScreen();
+                              } else {
+                                destination = const HomeSuraScreen();
+                              }
+                              // ShortExplanationIndex();
+                              // Get.to(() => destination);
+                              Navigator.of(
+                                context,
+                              ).push(MaterialPageRoute(builder: (_) => destination));
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      left: 20,
-                      top: itemSize - 30,
-                      child: Container(
-                        color: Colors.green.withOpacity(0.0),
-                        width: itemSize - 20,
-                        height: itemSize - 20,
-                        child: GestureDetector(
-                          // onTap: () => Get.to(const ArticlesScreen()),
-                          onTap: () =>
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ArticlesScreen())),
+                      Positioned(
+                        left: 20,
+                        top: itemSize - 30,
+                        child: Container(
+                          color: Colors.green.withOpacity(0.0),
+                          width: itemSize - 20,
+                          height: itemSize - 20,
+                          child: GestureDetector(
+                            // onTap: () => Get.to(const ArticlesScreen()),
+                            onTap:
+                                () => Navigator.of(
+                                  context,
+                                ).push(MaterialPageRoute(builder: (_) => const ArticlesScreen())),
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      left: 20,
-                      bottom: itemSize - 15,
-                      child: Container(
-                        color: Colors.red.withOpacity(0.0),
-                        width: itemSize - 20,
-                        height: itemSize - 20,
-                        child: GestureDetector(
-                          // onTap: () => Get.to(const TagsScreen()),
-                          onTap: () =>
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
+                      Positioned(
+                        left: 20,
+                        bottom: itemSize - 15,
+                        child: Container(
+                          color: Colors.red.withOpacity(0.0),
+                          width: itemSize - 20,
+                          height: itemSize - 20,
+                          child: GestureDetector(
+                            // onTap: () => Get.to(const TagsScreen()),
+                            onTap:
+                                () => Navigator.of(
+                                  context,
+                                ).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      left: itemSize,
-                      bottom: 15,
-                      child: Container(
-                        color: Colors.yellow.withOpacity(0.0),
-                        width: itemSize,
-                        height: itemSize - 20,
-                        child: GestureDetector(
-                          // onTap: () => Get.to(SettingScreen()),
-                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => SettingScreen())),
+                      Positioned(
+                        left: itemSize,
+                        bottom: 15,
+                        child: Container(
+                          color: Colors.yellow.withOpacity(0.0),
+                          width: itemSize,
+                          height: itemSize - 20,
+                          child: GestureDetector(
+                            // onTap: () => Get.to(SettingScreen()),
+                            onTap:
+                                () => Navigator.of(
+                                  context,
+                                ).push(MaterialPageRoute(builder: (_) => SettingScreen())),
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      right: 20,
-                      top: itemSize - 30,
-                      child: Container(
+                      Positioned(
+                        right: 20,
+                        top: itemSize - 30,
+                        child: Container(
                           color: Colors.blue.withOpacity(0.0),
                           width: itemSize - 20,
                           height: itemSize - 20,
                           child: GestureDetector(
                             // onTap: () => Get.to(AudioRecitationsScreen(), transition: Transition.fade),
                             onTap: () => Get.toNamed(ReadFullSuraScreen.id),
-                          )
+                          ),
                           // onTap: () => Navigator.of(context)
                           // .push(MaterialPageRoute(builder: (_) => const ReadFullSuraScreen()))),
+                        ),
+                      ),
+                      Positioned(
+                        right: 20,
+                        bottom: itemSize - 15,
+                        child: Container(
+                          color: Colors.orange.withOpacity(0.0),
+                          width: itemSize - 20,
+                          height: itemSize - 20,
+                          child: GestureDetector(
+                            // onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
+                            // onTap: () => Get.to(const VideosScreen(), transition: Transition.fade),
+                            onTap:
+                                () => Navigator.of(
+                                  context,
+                                ).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
                           ),
-                    ),
-                    Positioned(
-                      right: 20,
-                      bottom: itemSize - 15,
-                      child: Container(
-                        color: Colors.orange.withOpacity(0.0),
-                        width: itemSize - 20,
-                        height: itemSize - 20,
-                        child: GestureDetector(
-                          // onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
-                          // onTap: () => Get.to(const VideosScreen(), transition: Transition.fade),
-                          onTap: () =>
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      top: itemSize,
-                      bottom: itemSize,
-                      left: itemSize,
-                      child: SizedBox(
-                        width: itemSize - 20,
-                        height: itemSize - 20,
-                        child: GestureDetector(
-                          onTap: () => print('Quraaan'),
+                      Positioned(
+                        top: itemSize,
+                        bottom: itemSize,
+                        left: itemSize,
+                        child: SizedBox(
+                          width: itemSize - 20,
+                          height: itemSize - 20,
+                          child: GestureDetector(onTap: () => print('Quraaan')),
                         ),
                       ),
-                    )
-                  ],
-                )
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          )),
+          ),
           Positioned(
             bottom: 30,
             right: 0,
@@ -211,7 +215,8 @@ class _IntroScreenState extends State<IntroScreen> {
                     GestureDetector(
                       onTap: () {
                         // Get.toNamed(CompetitionsScreen.id);
-                        Navigator.of(context).pushNamed(CompetitionsScreen.id);
+                        // Navigator.of(context).pushNamed(CompetitionsScreen.id);
+                        Get.toNamed(ChatScreen.id);
                       },
                       child: Column(
                         children: [
@@ -219,10 +224,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             height: 50,
                             width: 50,
                             alignment: Alignment.center,
-                            child: Image.asset(
-                              "assets/images/answer_icon.png",
-                              fit: BoxFit.cover,
-                            ),
+                            child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
                           ),
                           const ArabicText(
                             'أسئلة تحتاج الي اجابة',
@@ -257,11 +259,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          const ArabicText(
-                            "رفع بحث",
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
+                          const ArabicText("رفع بحث", color: Colors.white, fontSize: 10),
                         ],
                       ),
                     ),
@@ -277,162 +275,166 @@ class _IntroScreenState extends State<IntroScreen> {
     return Stack(
       children: [
         SplashBackground(
-            childWidget: Container(
-          padding: EdgeInsets.only(top: itemSize / 1.3),
-          child: Column(
-            children: [
-              Image.asset(
-                logoSmall,
-                width: scHeight / 8,
-                height: scHeight / 8,
-              ),
-              Text(
-                'app_name'.tr,
-                // '',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: scHeight / 40, fontFamily: 'Almarai'),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                'introText'.tr,
-                style: TextStyle(
-                  color: const Color(0xFFF5B45E),
-                  fontSize: scHeight / 70,
-                  fontFamily: 'Almarai',
+          childWidget: Container(
+            padding: EdgeInsets.only(top: itemSize / 1.3),
+            child: Column(
+              children: [
+                Image.asset(logoSmall, width: scHeight / 8, height: scHeight / 8),
+                Text(
+                  'app_name'.tr,
+                  // '',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: scHeight / 40,
+                    fontFamily: 'Almarai',
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: scHeight / 20,
-              ),
-              Stack(
-                children: [
-                  Image.asset(
-                    _centerView(),
-                    width: 50.vw,
-                    height: 40.vh,
-                    fit: BoxFit.fill,
+                const SizedBox(height: 8),
+                Text(
+                  'introText'.tr,
+                  style: TextStyle(
+                    color: const Color(0xFFF5B45E),
+                    fontSize: scHeight / 70,
+                    fontFamily: 'Almarai',
                   ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    child: Center(
-                      child: Container(
-                        color: Colors.blue.withOpacity(0.0),
-                        width: 20.vw,
-                        height: 10.vh,
-                        child: GestureDetector(
-                          onTap: () {
-                            int page =
-                                GetStorage().read(savedPage).toString() == 'null' ? 0 : GetStorage().read(savedPage);
-                            Locale loca = Get.locale!;
-                            Widget destination;
-                            if (loca.languageCode == 'ar') {
-                              destination = const HomeSuraScreen();
-                            } else {
-                              destination = const HomeSuraScreen();
-                            }
-                            // ShortExplanationIndex();
-                            // Get.to(() => destination);
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => destination));
-                          },
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: scHeight / 20),
+                Stack(
+                  children: [
+                    Image.asset(_centerView(), width: 50.vw, height: 40.vh, fit: BoxFit.fill),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      child: Center(
+                        child: Container(
+                          color: Colors.blue.withOpacity(0.0),
+                          width: 20.vw,
+                          height: 10.vh,
+                          child: GestureDetector(
+                            onTap: () {
+                              int page =
+                                  GetStorage().read(savedPage).toString() == 'null'
+                                      ? 0
+                                      : GetStorage().read(savedPage);
+                              Locale loca = Get.locale!;
+                              Widget destination;
+                              if (loca.languageCode == 'ar') {
+                                destination = const HomeSuraScreen();
+                              } else {
+                                destination = const HomeSuraScreen();
+                              }
+                              // ShortExplanationIndex();
+                              // Get.to(() => destination);
+                              Navigator.of(
+                                context,
+                              ).push(MaterialPageRoute(builder: (_) => destination));
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    left: 0.vw,
-                    top: 10.vh,
-                    child: Container(
-                      color: Colors.green.withOpacity(0.0),
-                      width: 20.vw,
-                      height: 10.vh,
-                      child: GestureDetector(
-                        // onTap: () => Get.to(const ArticlesScreen()),
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ArticlesScreen())),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    bottom: 10.vh,
-                    child: Container(
-                      color: Colors.red.withOpacity(0.0),
-                      width: 20.vw,
-                      height: 10.vh,
-                      child: GestureDetector(
-                        // onTap: () => Get.to(const TagsScreen()),
-                        onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Center(
+                    Positioned(
+                      left: 0.vw,
+                      top: 10.vh,
                       child: Container(
-                        color: Colors.yellow.withOpacity(0.0),
+                        color: Colors.green.withOpacity(0.0),
                         width: 20.vw,
                         height: 10.vh,
                         child: GestureDetector(
-                          // onTap: () => Get.to(SettingScreen()),
-                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => SettingScreen())),
+                          // onTap: () => Get.to(const ArticlesScreen()),
+                          onTap:
+                              () => Navigator.of(
+                                context,
+                              ).push(MaterialPageRoute(builder: (_) => const ArticlesScreen())),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    right: 0.vw,
-                    top: 10.vh,
-                    child: Container(
+                    Positioned(
+                      left: 0,
+                      bottom: 10.vh,
+                      child: Container(
+                        color: Colors.red.withOpacity(0.0),
+                        width: 20.vw,
+                        height: 10.vh,
+                        child: GestureDetector(
+                          // onTap: () => Get.to(const TagsScreen()),
+                          onTap:
+                              () => Navigator.of(
+                                context,
+                              ).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: Center(
+                        child: Container(
+                          color: Colors.yellow.withOpacity(0.0),
+                          width: 20.vw,
+                          height: 10.vh,
+                          child: GestureDetector(
+                            // onTap: () => Get.to(SettingScreen()),
+                            onTap:
+                                () => Navigator.of(
+                                  context,
+                                ).push(MaterialPageRoute(builder: (_) => SettingScreen())),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      right: 0.vw,
+                      top: 10.vh,
+                      child: Container(
                         color: Colors.blue.withOpacity(0.0),
                         width: 20.vw,
                         height: 10.vh,
                         child: GestureDetector(
                           // onTap: () => Get.to(AudioRecitationsScreen(), transition: Transition.fade),
                           onTap: () => Get.toNamed(ReadFullSuraScreen.id),
-                        )
+                        ),
                         // onTap: () => Navigator.of(context)
                         // .push(MaterialPageRoute(builder: (_) => const ReadFullSuraScreen()))),
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 10.vh,
+                      child: Container(
+                        color: Colors.orange.withOpacity(0.0),
+                        width: 20.vw,
+                        height: 10.vh,
+                        child: GestureDetector(
+                          // onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
+                          // onTap: () => Get.to(const VideosScreen(), transition: Transition.fade),
+                          onTap:
+                              () => Navigator.of(
+                                context,
+                              ).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
                         ),
-                  ),
-                  Positioned(
-                    right: 0,
-                    bottom: 10.vh,
-                    child: Container(
-                      color: Colors.orange.withOpacity(0.0),
-                      width: 20.vw,
-                      height: 10.vh,
-                      child: GestureDetector(
-                        // onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
-                        // onTap: () => Get.to(const VideosScreen(), transition: Transition.fade),
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: itemSize,
-                    bottom: itemSize,
-                    left: itemSize,
-                    child: SizedBox(
-                      width: itemSize - 20,
-                      height: itemSize - 20,
-                      child: GestureDetector(
-                        onTap: () => print('Quraaan'),
+                    Positioned(
+                      top: itemSize,
+                      bottom: itemSize,
+                      left: itemSize,
+                      child: SizedBox(
+                        width: itemSize - 20,
+                        height: itemSize - 20,
+                        child: GestureDetector(onTap: () => print('Quraaan')),
                       ),
                     ),
-                  )
-                ],
-              )
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
         Positioned(
           bottom: 30,
           right: 0,
@@ -447,7 +449,8 @@ class _IntroScreenState extends State<IntroScreen> {
                   GestureDetector(
                     onTap: () {
                       // Get.toNamed(CompetitionsScreen.id);
-                      Navigator.of(context).pushNamed(CompetitionsScreen.id);
+                      // Navigator.of(context).pushNamed(CompetitionsScreen.id);
+                      Get.toNamed(ChatScreen.id);
                     },
                     child: Column(
                       children: [
@@ -455,10 +458,7 @@ class _IntroScreenState extends State<IntroScreen> {
                           height: 50,
                           width: 50,
                           alignment: Alignment.center,
-                          child: Image.asset(
-                            "assets/images/answer_icon.png",
-                            fit: BoxFit.cover,
-                          ),
+                          child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
                         ),
                         const ArabicText(
                           'أسئلة تحتاج الي اجابة',
@@ -488,16 +488,9 @@ class _IntroScreenState extends State<IntroScreen> {
                           height: 50,
                           width: 50,
                           alignment: Alignment.center,
-                          child: Image.asset(
-                            "assets/images/research_icon.png",
-                            fit: BoxFit.cover,
-                          ),
+                          child: Image.asset("assets/images/research_icon.png", fit: BoxFit.cover),
                         ),
-                        const ArabicText(
-                          "رفع بحث",
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
+                        const ArabicText("رفع بحث", color: Colors.white, fontSize: 10),
                       ],
                     ),
                   ),
@@ -538,7 +531,7 @@ const commentRequest = {
   "name": "Eslam Ahmed Kamel",
   "phone": "01024510803",
   "comment": "some comment",
-  "deviceLocale": "ar" // 'en' , 'es' , 'fr' ....
+  "deviceLocale": "ar", // 'en' , 'es' , 'fr' ....
 };
 
 extension Height on int {

@@ -1,6 +1,7 @@
 import 'package:dlalat_quaran_new/controllers/add_reserch_controller.dart';
 import 'package:dlalat_quaran_new/controllers/article_series_controller.dart';
 import 'package:dlalat_quaran_new/controllers/articles_controller.dart';
+import 'package:dlalat_quaran_new/controllers/chat_controller.dart';
 import 'package:dlalat_quaran_new/controllers/comment_controller.dart';
 import 'package:dlalat_quaran_new/controllers/correct_word_controller.dart';
 import 'package:dlalat_quaran_new/controllers/download_link_controller.dart';
@@ -36,4 +37,5 @@ void initializeGetController() {
   Get.put(ReadAyaController(), permanent: true);
   Get.put(SimilarWordController(), permanent: true);
   Get.put(CorrectWordController(), permanent: true);
+  Get.put(ChatController()..init(), permanent: true);
 }
