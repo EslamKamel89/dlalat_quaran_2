@@ -7,6 +7,7 @@ import 'package:dlalat_quaran_new/controllers/settings_controller.dart';
 import 'package:dlalat_quaran_new/dialogs/custom_snack_bar.dart';
 import 'package:dlalat_quaran_new/models/tag_model.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
+import 'package:dlalat_quaran_new/ui/chat/helpers/clean_reply.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
 import 'package:dlalat_quaran_new/utils/calc_font_size.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
@@ -58,54 +59,53 @@ class _DialogWordTagState extends State<DialogWordTag> {
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Container(
           padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
           margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
-          child: GetBuilder<GetTagController>(builder: (_) {
-            return Column(
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      child: const Icon(Icons.arrow_back_outlined),
-                      onTap: () {
-                        Get.back();
-                        Get.delete<DialogWordTagController>();
-                      },
-                    ),
-                    Expanded(
-                        child: Html(
-                      data: tagModel?.name() ?? '',
-                      style: mainHtmlStyle(),
-                    )
+          child: GetBuilder<GetTagController>(
+            builder: (_) {
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                        child: const Icon(Icons.arrow_back_outlined),
+                        onTap: () {
+                          Get.back();
+                          Get.delete<DialogWordTagController>();
+                        },
+                      ),
+                      Expanded(
+                        child: Html(data: tagModel?.name() ?? '', style: mainHtmlStyle()),
                         // Obx(() => Html(
                         //       data: _dialogController.wordName.value,
                         //       style: mainHtmlStyle(),
                         //     )),
-                        ),
-                    const Icon(null),
-                  ],
-                ),
-                Container(
-                  color: Colors.grey,
-                  height: .5,
-                  margin: const EdgeInsets.only(top: 15, bottom: 15),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
+                      ),
+                      const Icon(null),
+                    ],
+                  ),
+                  Container(
+                    color: Colors.grey,
+                    height: .5,
+                    margin: const EdgeInsets.only(top: 15, bottom: 15),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
                       onPressed: () {
                         String shareContent = 'شرح الكلمة الدلالية: ';
                         shareContent = '$shareContent ${tagModel?.name() ?? ''}';
                         shareContent = '$shareContent\n${tagModel?.descriptionWithNoTags() ?? ''}';
-                        Share.share(
-                          shareContent,
-                          subject: tagModel?.name() ?? '',
-                        );
+                        Share.share(shareContent, subject: tagModel?.name() ?? '');
                       },
-                      icon: const Icon(Icons.share, color: primaryColor)),
-                ),
-                tagModel?.description() != 'null' && tagModel?.description() != ''
-                    ? Expanded(
+                      icon: const Icon(Icons.share, color: primaryColor),
+                    ),
+                  ),
+                  tagModel?.description() != 'null' && tagModel?.description() != ''
+                      ? Expanded(
                         flex: 1,
                         child: Scrollbar(
                           trackVisibility: true,
@@ -117,36 +117,39 @@ class _DialogWordTagState extends State<DialogWordTag> {
                             child: Padding(
                               padding: const EdgeInsets.only(right: 12, left: 12),
                               child:
-                                  // Obx(() =>
-                                  Container(
+                              // Obx(() =>
+                              Container(
                                 margin: const EdgeInsetsDirectional.only(start: 20, end: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Html(
                                       // data: _dialogController.description.value,
-                                      data: tagModel?.description() ?? '',
+                                      data: cleanHtml(tagModel?.description() ?? ''),
                                       style: mainHtmlStyle(),
                                     ),
                                     GetBuilder<GetDownloadLinkController>(
                                       builder: (_) {
                                         if (downloadLink != null) {
                                           return TextButton(
-                                              onPressed: () {
-                                                launchUrl(Uri.parse(downloadLink!));
-                                              },
-                                              child: Text(
-                                                'أقرا المزيد',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.black,
-                                                  fontSize: calcFontSize(
-                                                      Get.find<SettingsController>().fontTypeEnum == FontType.normal
-                                                          ? 14
-                                                          : 18),
-                                                  fontFamily: 'Almarai',
+                                            onPressed: () {
+                                              launchUrl(Uri.parse(downloadLink!));
+                                            },
+                                            child: Text(
+                                              'أقرا المزيد',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.black,
+                                                fontSize: calcFontSize(
+                                                  Get.find<SettingsController>().fontTypeEnum ==
+                                                          FontType.normal
+                                                      ? 14
+                                                      : 18,
                                                 ),
-                                              ));
+                                                fontFamily: 'Almarai',
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           return const SizedBox();
                                         }
@@ -160,84 +163,91 @@ class _DialogWordTagState extends State<DialogWordTag> {
                           ),
                         ),
                       )
-                    : Expanded(
+                      : Expanded(
                         child: GridView.count(
                           crossAxisCount: 2,
-                          children: _dialogController.videoModels.map((e) {
-                            // e.name = _dialogController.wordName.value;
-                            return VideoItemDialog(
-                              videoModel: e,
-                            );
-                          }).toList(),
+                          children:
+                              _dialogController.videoModels.map((e) {
+                                // e.name = _dialogController.wordName.value;
+                                return VideoItemDialog(videoModel: e);
+                              }).toList(),
                         ),
                       ),
-                // ),
-                Obx(() => _dialogController.videoModels.isNotEmpty &&
-                        _dialogController.description.value != 'null' &&
-                        _dialogController.description.value != ''
-                    ? SizedBox(
-                        height: 170,
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            _dialogController.videoModels[index].name = _dialogController.wordName.value;
-                            return VideoItemDialog(
-                              videoModel: _dialogController.videoModels[index],
-                            );
-                          },
-                          itemCount: _dialogController.videoModels.length,
-                          scrollDirection: Axis.horizontal,
-                        ),
-                      )
-                    : const SizedBox()),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    PrimaryButton(
-                      onPressed: () {
-                        Get.toNamed(AddCommentView.id, arguments: {"id": widget.tagId, 'commentType': 'tag'});
-                      },
-                      borderRadius: 5,
-                      child: Text(
-                        'addComment'.tr,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: calcFontSize(18),
-                          fontFamily: 'Almarai',
+                  // ),
+                  Obx(
+                    () =>
+                        _dialogController.videoModels.isNotEmpty &&
+                                _dialogController.description.value != 'null' &&
+                                _dialogController.description.value != ''
+                            ? SizedBox(
+                              height: 170,
+                              child: ListView.builder(
+                                itemBuilder: (context, index) {
+                                  _dialogController.videoModels[index].name =
+                                      _dialogController.wordName.value;
+                                  return VideoItemDialog(
+                                    videoModel: _dialogController.videoModels[index],
+                                  );
+                                },
+                                itemCount: _dialogController.videoModels.length,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                            )
+                            : const SizedBox(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Spacer(),
+                      PrimaryButton(
+                        onPressed: () {
+                          Get.toNamed(
+                            AddCommentView.id,
+                            arguments: {"id": widget.tagId, 'commentType': 'tag'},
+                          );
+                        },
+                        borderRadius: 5,
+                        child: Text(
+                          'addComment'.tr,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: calcFontSize(18),
+                            fontFamily: 'Almarai',
+                          ),
                         ),
                       ),
-                    ),
-                    // const SizedBox(width: 5),
-                    // GetBuilder<GetDownloadLinkController>(
-                    //   builder: (_) {
-                    //     if (downloadLink != null) {
-                    //       return PrimaryButton(
-                    //         onPressed: () {
-                    //           launchUrl(Uri.parse(downloadLink!));
-                    //         },
-                    //         borderRadius: 5,
-                    //         child: Text(
-                    //           'تحميل'.tr,
-                    //           style: const TextStyle(
-                    //             fontWeight: FontWeight.bold,
-                    //             color: Colors.white,
-                    //             fontSize: 18,
-                    //             fontFamily: 'Almarai',
-                    //           ),
-                    //         ),
-                    //       );
-                    //     } else {
-                    //       return const SizedBox();
-                    //     }
-                    //   },
-                    // ),
-                    const Spacer(),
-                  ],
-                ),
-              ],
-            );
-          }),
+                      // const SizedBox(width: 5),
+                      // GetBuilder<GetDownloadLinkController>(
+                      //   builder: (_) {
+                      //     if (downloadLink != null) {
+                      //       return PrimaryButton(
+                      //         onPressed: () {
+                      //           launchUrl(Uri.parse(downloadLink!));
+                      //         },
+                      //         borderRadius: 5,
+                      //         child: Text(
+                      //           'تحميل'.tr,
+                      //           style: const TextStyle(
+                      //             fontWeight: FontWeight.bold,
+                      //             color: Colors.white,
+                      //             fontSize: 18,
+                      //             fontFamily: 'Almarai',
+                      //           ),
+                      //         ),
+                      //       );
+                      //     } else {
+                      //       return const SizedBox();
+                      //     }
+                      //   },
+                      // ),
+                      const Spacer(),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -249,13 +259,14 @@ class _DialogWordTagState extends State<DialogWordTag> {
         tagModel = value;
         pr(tagModel, '$t - tagModel');
         _downloadLinkController
-            .getDownloadlink(downloadLinkType: DownloadLinkType.tag, id: tagModel?.id.toString() ?? '')
-            .then(
-          (value) {
-            pr(value, '$t - downloadLink');
-            return downloadLink = value;
-          },
-        );
+            .getDownloadlink(
+              downloadLinkType: DownloadLinkType.tag,
+              id: tagModel?.id.toString() ?? '',
+            )
+            .then((value) {
+              pr(value, '$t - downloadLink');
+              return downloadLink = value;
+            });
       });
     } on Exception catch (e) {
       pr('Exception occured: $e', t);

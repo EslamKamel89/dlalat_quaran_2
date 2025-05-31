@@ -7,6 +7,7 @@ import 'package:dlalat_quaran_new/controllers/explanation_controller.dart';
 import 'package:dlalat_quaran_new/controllers/settings_controller.dart';
 import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
+import 'package:dlalat_quaran_new/ui/chat/helpers/clean_reply.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
 import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
 import 'package:dlalat_quaran_new/utils/calc_font_size.dart';
@@ -53,12 +54,10 @@ class _ExplainDialogState extends State<ExplainDialog> {
   String? explanation;
   @override
   void initState() {
-    _downloadLinkController.getDownloadlink(downloadLinkType: DownloadLinkType.ayah, id: widget.ayaKey).then(
-          (value) => downloadLink = value,
-        );
-    explanationController.getExplanation(id: widget.ayaKey).then(
-          (value) => explanation = value,
-        );
+    _downloadLinkController
+        .getDownloadlink(downloadLinkType: DownloadLinkType.ayah, id: widget.ayaKey)
+        .then((value) => downloadLink = value);
+    explanationController.getExplanation(id: widget.ayaKey).then((value) => explanation = value);
 
     super.initState();
   }
@@ -83,7 +82,10 @@ class _ExplainDialogState extends State<ExplainDialog> {
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: Container(
             padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
             margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
             child: Column(
               children: [
@@ -94,19 +96,21 @@ class _ExplainDialogState extends State<ExplainDialog> {
                       onTap: () => Get.back(),
                     ),
                     Expanded(
-                        child: Text(
-                      // 'aya_explanation'.tr,
-                      widget.suraName == null
-                          ? ''
-                          : 'تفسير الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''} في ${widget.suraName!}',
-                      // : '${widget.suraName!} الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+                      child: Text(
+                        // 'aya_explanation'.tr,
+                        widget.suraName == null
+                            ? ''
+                            : 'تفسير الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''} في ${widget.suraName!}',
+                        // : '${widget.suraName!} الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
                           fontFamily: 'Almarai',
                           color: primaryColor,
                           fontSize: calcFontSize(15),
-                          fontWeight: FontWeight.bold),
-                    )),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                     const Icon(null),
                   ],
                 ),
@@ -116,38 +120,45 @@ class _ExplainDialogState extends State<ExplainDialog> {
                   margin: const EdgeInsets.only(top: 15, bottom: 15),
                 ),
                 const SizedBox(height: 5),
-                Obx(() => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          child: Text(
-                            _dialogController.ayaText.value.toLowerCase() != 'null'
-                                ? _dialogController.ayaText.value
-                                : '',
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(fontFamily: "me_quran", color: primaryColor, fontSize: calcFontSize(15)),
+                Obx(
+                  () => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        child: Text(
+                          _dialogController.ayaText.value.toLowerCase() != 'null'
+                              ? _dialogController.ayaText.value
+                              : '',
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontFamily: "me_quran",
+                            color: primaryColor,
+                            fontSize: calcFontSize(15),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: IconButton(
-                              onPressed: () {
-                                String shareContent = _dialogController.ayaText.value;
-                                shareContent =
-                                    '$shareContent\nتفسير الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''} في ${widget.suraName!}\n';
-                                shareContent =
-                                    '$shareContent\n${DataBaseHelper.dataBaseInstance().parseHtmlString(explanation ?? '')}';
-                                Share.share(
-                                  shareContent,
-                                  subject:
-                                      'تفسير الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''} في ${widget.suraName!}',
-                                );
-                              },
-                              icon: const Icon(Icons.share, color: primaryColor)),
-                        )
-                      ],
-                    )),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          onPressed: () {
+                            String shareContent = _dialogController.ayaText.value;
+                            shareContent =
+                                '$shareContent\nتفسير الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''} في ${widget.suraName!}\n';
+                            shareContent =
+                                '$shareContent\n${DataBaseHelper.dataBaseInstance().parseHtmlString(explanation ?? '')}';
+                            Share.share(
+                              shareContent,
+                              subject:
+                                  'تفسير الأية رقم ${formatArabicNumber(widget.ayaNumber) ?? ''} في ${widget.suraName!}',
+                            );
+                          },
+                          icon: const Icon(Icons.share, color: primaryColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
                   flex: 1,
                   child: Scrollbar(
@@ -182,29 +193,29 @@ class _ExplainDialogState extends State<ExplainDialog> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Html(
-                                  data: explanation ?? '',
-                                  style: mainHtmlStyle(),
-                                ),
+                                Html(data: cleanHtml(explanation ?? ''), style: mainHtmlStyle()),
                                 GetBuilder<GetDownloadLinkController>(
                                   builder: (_) {
                                     if (downloadLink != null) {
                                       return TextButton(
-                                          onPressed: () {
-                                            launchUrl(Uri.parse(downloadLink!));
-                                          },
-                                          child: Text(
-                                            'أقرا المزيد',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black,
-                                              fontSize: calcFontSize(
-                                                  Get.find<SettingsController>().fontTypeEnum == FontType.normal
-                                                      ? 14
-                                                      : 18),
-                                              fontFamily: 'Almarai',
+                                        onPressed: () {
+                                          launchUrl(Uri.parse(downloadLink!));
+                                        },
+                                        child: Text(
+                                          'أقرا المزيد',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.black,
+                                            fontSize: calcFontSize(
+                                              Get.find<SettingsController>().fontTypeEnum ==
+                                                      FontType.normal
+                                                  ? 14
+                                                  : 18,
                                             ),
-                                          ));
+                                            fontFamily: 'Almarai',
+                                          ),
+                                        ),
+                                      );
                                     } else {
                                       return const SizedBox();
                                     }
@@ -224,54 +235,56 @@ class _ExplainDialogState extends State<ExplainDialog> {
                     Visibility(
                       visible: false,
                       child: Expanded(
-                          child: SizedBox(
-                        height: 55,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
+                        child: SizedBox(
+                          height: 55,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueGrey,
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
-                          onPressed: widget.playerFunction,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                soundIcon,
-                                width: 30,
-                                height: 30,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
                               ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              AlMaraiText(10, 'start_recitation'.tr)
-                            ],
+                            ),
+                            onPressed: widget.playerFunction,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(soundIcon, width: 30, height: 30),
+                                const SizedBox(width: 7),
+                                AlMaraiText(10, 'start_recitation'.tr),
+                              ],
+                            ),
                           ),
                         ),
-                      )),
+                      ),
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
+                    const SizedBox(width: 20),
                     Expanded(
-                        child: SizedBox(
-                      height: 55,
-                      child: Obx(() => Visibility(
+                      child: SizedBox(
+                        height: 55,
+                        child: Obx(
+                          () => Visibility(
                             visible: _dialogController.videoUrl.value.toLowerCase() != 'null',
                             child: PrimaryButton(
-                                onPressed: () =>
-                                    Get.to(() => VideoPlayerScreen(videoId: _dialogController.videoUrl.value)),
-                                borderRadius: 10,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.play_circle_fill),
-                                    const SizedBox(
-                                      width: 7,
+                              onPressed:
+                                  () => Get.to(
+                                    () => VideoPlayerScreen(
+                                      videoId: _dialogController.videoUrl.value,
                                     ),
-                                    AlMaraiText(0, 'video'.tr)
-                                  ],
-                                )),
-                          )),
-                    )),
+                                  ),
+                              borderRadius: 10,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.play_circle_fill),
+                                  const SizedBox(width: 7),
+                                  AlMaraiText(0, 'video'.tr),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -280,7 +293,10 @@ class _ExplainDialogState extends State<ExplainDialog> {
                     const Spacer(),
                     PrimaryButton(
                       onPressed: () {
-                        Get.toNamed(AddCommentView.id, arguments: {"id": widget.ayaKey, 'commentType': 'ayah'});
+                        Get.toNamed(
+                          AddCommentView.id,
+                          arguments: {"id": widget.ayaKey, 'commentType': 'ayah'},
+                        );
                       },
                       borderRadius: 5,
                       child: Text(

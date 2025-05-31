@@ -53,3 +53,14 @@ $reply
   reply = reply.replaceAll('  ', ' ');
   return reply;
 }
+
+String cleanHtml(String text) {
+  // pr(text, 'cleanHtml');
+  // text = 'hello world';
+  // return text;
+  text = text.trim().replaceAll(RegExp(r'^;|;$'), '');
+  text = text.trim().replaceAll('nbsp', '');
+  text = text.trim().replaceAll(';', '');
+  text = text.trim().replaceAll('&', '');
+  return text;
+}

@@ -4,4 +4,5 @@ class AssetsData {
   static const String logoSmall = "$_relativePath/logo_small.png";
   static const String researchLogo = "$_relativePath/research.png";
   static const String questionLogo = "$_relativePath/questions.png";
+  static const String researchLogoB = "$_relativePath/research_b.png";
 }

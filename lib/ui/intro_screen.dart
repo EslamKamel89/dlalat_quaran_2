@@ -402,6 +402,7 @@ class QuestionAndResearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double size = 50;
     return Positioned(
       bottom: 30,
       right: 0,
@@ -419,21 +420,35 @@ class QuestionAndResearchWidget extends StatelessWidget {
                   // Navigator.of(context).pushNamed(CompetitionsScreen.id);
                   Get.toNamed(ChatScreen.id);
                 },
-                child: Column(
+                child: Stack(
+                  clipBehavior: Clip.none,
                   children: [
-                    Container(
-                      height: 40,
-                      // width: 50,
-                      alignment: Alignment.center,
-                      // child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
-                      child: Image.asset(AssetsData.questionLogo, fit: BoxFit.cover),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 35),
+                      child: Container(
+                        height: size,
+                        // width: 50,
+                        alignment: Alignment.center,
+                        // child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
+                        child: Image.asset(AssetsData.questionLogo, fit: BoxFit.cover),
+                      ),
                     ),
-                    const ArabicText('أسئلة تحتاج الي اجابة', color: Colors.white, fontSize: 10),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      child: const ArabicText(
+                        'أسئلة تحتاج الي اجابة',
+                        color: Colors.white,
+                        fontSize: 10,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
                 ),
               ),
               Transform.translate(
-                offset: Offset(2, 10),
+                offset: Offset(-11, 20),
                 child: Expanded(
                   child: Container(
                     // height: 50,
@@ -449,19 +464,33 @@ class QuestionAndResearchWidget extends StatelessWidget {
                   Navigator.of(context).pushNamed(AddResearchView.id);
                   // Get.toNamed(AudioPlayerScreen.id);
                 },
-                child: Column(
+                child: Stack(
                   children: [
-                    Container(
-                      height: 40,
-                      // width: 50,
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        // "assets/images/research_icon.png",
-                        AssetsData.researchLogo,
-                        fit: BoxFit.cover,
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 35),
+
+                      child: Container(
+                        height: size,
+                        // width: 50,
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          // "assets/images/research_icon.png",
+                          AssetsData.researchLogoB,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    const ArabicText("رفع بحث", color: Colors.white, fontSize: 10),
+                    Positioned(
+                      bottom: 17,
+                      right: 0,
+                      left: 0,
+                      child: const ArabicText(
+                        "رفع بحث",
+                        textAlign: TextAlign.center,
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ),
                   ],
                 ),
               ),
