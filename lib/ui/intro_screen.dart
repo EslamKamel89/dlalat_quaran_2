@@ -8,6 +8,7 @@ import 'package:dlalat_quaran_new/ui/read_full_sura_screen/read_full_sura_screen
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
 import 'package:dlalat_quaran_new/ui/tags_screen/tags_screen.dart';
 import 'package:dlalat_quaran_new/ui/video_screen/videos_screen.dart';
+import 'package:dlalat_quaran_new/utils/assets.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/text_styles.dart';
 import 'package:dlalat_quaran_new/widgets/splash_background.dart';
@@ -192,7 +193,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         child: SizedBox(
                           width: itemSize - 20,
                           height: itemSize - 20,
-                          child: GestureDetector(onTap: () => print('Quraaan')),
+                          child: GestureDetector(onTap: () {}),
                         ),
                       ),
                     ],
@@ -201,73 +202,7 @@ class _IntroScreenState extends State<IntroScreen> {
               ),
             ),
           ),
-          Positioned(
-            bottom: 30,
-            right: 0,
-            left: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: SizedBox(
-                // width: double,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Get.toNamed(CompetitionsScreen.id);
-                        // Navigator.of(context).pushNamed(CompetitionsScreen.id);
-                        Get.toNamed(ChatScreen.id);
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            alignment: Alignment.center,
-                            child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
-                          ),
-                          const ArabicText(
-                            'أسئلة تحتاج الي اجابة',
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        // height: 50,
-                        margin: const EdgeInsets.only(bottom: 70),
-                        child: Image.asset("assets/images/Line.png", fit: BoxFit.cover),
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    GestureDetector(
-                      onTap: () {
-                        // Get.toNamed(AddResearchView.id);
-                        Navigator.of(context).pushNamed(AddResearchView.id);
-                        // Get.toNamed(AudioPlayerScreen.id);
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            alignment: Alignment.center,
-                            child: Image.asset(
-                              "assets/images/research_icon.png",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const ArabicText("رفع بحث", color: Colors.white, fontSize: 10),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          QuestionAndResearchWidget(),
         ],
       );
     }
@@ -435,70 +370,7 @@ class _IntroScreenState extends State<IntroScreen> {
             ),
           ),
         ),
-        Positioned(
-          bottom: 30,
-          right: 0,
-          left: 0,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: SizedBox(
-              // width: double,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Get.toNamed(CompetitionsScreen.id);
-                      // Navigator.of(context).pushNamed(CompetitionsScreen.id);
-                      Get.toNamed(ChatScreen.id);
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: 50,
-                          alignment: Alignment.center,
-                          child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
-                        ),
-                        const ArabicText(
-                          'أسئلة تحتاج الي اجابة',
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      // height: 50,
-                      margin: const EdgeInsets.only(bottom: 70),
-                      child: Image.asset("assets/images/Line.png", fit: BoxFit.cover),
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  GestureDetector(
-                    onTap: () {
-                      // Get.toNamed(AddResearchView.id);
-                      Navigator.of(context).pushNamed(AddResearchView.id);
-                      // Get.toNamed(AudioPlayerScreen.id);
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: 50,
-                          alignment: Alignment.center,
-                          child: Image.asset("assets/images/research_icon.png", fit: BoxFit.cover),
-                        ),
-                        const ArabicText("رفع بحث", color: Colors.white, fontSize: 10),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        QuestionAndResearchWidget(),
       ],
     );
   }
@@ -525,14 +397,81 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 }
 
-const commentRequest = {
-  "model": "tags", // reciters , articles , tag_words ....
-  "modelId": "10",
-  "name": "Eslam Ahmed Kamel",
-  "phone": "01024510803",
-  "comment": "some comment",
-  "deviceLocale": "ar", // 'en' , 'es' , 'fr' ....
-};
+class QuestionAndResearchWidget extends StatelessWidget {
+  const QuestionAndResearchWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 30,
+      right: 0,
+      left: 0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50),
+        child: SizedBox(
+          // width: double,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // Get.toNamed(CompetitionsScreen.id);
+                  // Navigator.of(context).pushNamed(CompetitionsScreen.id);
+                  Get.toNamed(ChatScreen.id);
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 40,
+                      // width: 50,
+                      alignment: Alignment.center,
+                      // child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
+                      child: Image.asset(AssetsData.questionLogo, fit: BoxFit.cover),
+                    ),
+                    const ArabicText('أسئلة تحتاج الي اجابة', color: Colors.white, fontSize: 10),
+                  ],
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(2, 10),
+                child: Expanded(
+                  child: Container(
+                    // height: 50,
+                    margin: const EdgeInsets.only(bottom: 70),
+                    child: Image.asset("assets/images/Line.png", fit: BoxFit.cover),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 5),
+              GestureDetector(
+                onTap: () {
+                  // Get.toNamed(AddResearchView.id);
+                  Navigator.of(context).pushNamed(AddResearchView.id);
+                  // Get.toNamed(AudioPlayerScreen.id);
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 40,
+                      // width: 50,
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        // "assets/images/research_icon.png",
+                        AssetsData.researchLogo,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const ArabicText("رفع بحث", color: Colors.white, fontSize: 10),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 extension Height on int {
   double get vh => this * (Get.height / 100);
