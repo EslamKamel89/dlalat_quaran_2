@@ -51,7 +51,7 @@ class _IntroScreenState extends State<IntroScreen> {
               padding: EdgeInsets.only(top: itemSize / 3),
               child: Column(
                 children: [
-                  Image.asset(logoSmall, width: 80, height: 80),
+                  Image.asset(logoSmall, width: 60, height: 60),
                   Text(
                     'app_name'.tr,
                     // '',

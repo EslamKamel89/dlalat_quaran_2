@@ -25,13 +25,12 @@ class _TagsScreenState extends State<TagsScreen> {
         appBar: QuranBar('semantics'.tr),
         body: Column(
           children: [
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 5),
             TabBar(
               indicatorColor: Colors.transparent,
               tabs: [
-                TabButton(title: "المترادفات", selected: currentIndex == 0),
+                // TabButton(title: "المترادفات", selected: currentIndex == 0),
+                TabButton(title: "المتطابقات", selected: currentIndex == 0),
                 TabButton(title: "المعاني", selected: currentIndex == 1),
                 // TabButton(title: "الفروق", selected: currentIndex == 2),
               ],
@@ -41,13 +40,14 @@ class _TagsScreenState extends State<TagsScreen> {
               },
             ),
             Expanded(
-                child: currentIndex == 0
-                    ? const EqualsTagsWidgt()
-                    // : currentIndex == 1
-                    // ?
-                    : const MeaningTagsWidgt()
-                // : const DifferenceTagsWidgt(),
-                ),
+              child:
+                  currentIndex == 0
+                      ? const EqualsTagsWidgt()
+                      // : currentIndex == 1
+                      // ?
+                      : const MeaningTagsWidgt(),
+              // : const DifferenceTagsWidgt(),
+            ),
           ],
         ),
       ),
