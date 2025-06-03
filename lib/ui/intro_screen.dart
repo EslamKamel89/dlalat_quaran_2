@@ -3,11 +3,13 @@ import 'package:dlalat_quaran_new/controllers/similar_word_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_research.dart';
 import 'package:dlalat_quaran_new/ui/articles_screen/articles_screen.dart';
 import 'package:dlalat_quaran_new/ui/chat/chat_screen.dart';
+import 'package:dlalat_quaran_new/ui/competition_screen.dart';
 import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/read_full_sura_screen/read_full_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
 import 'package:dlalat_quaran_new/ui/tags_screen/tags_screen.dart';
 import 'package:dlalat_quaran_new/ui/video_screen/videos_screen.dart';
+import 'package:dlalat_quaran_new/utils/assets.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/text_styles.dart';
 import 'package:dlalat_quaran_new/widgets/splash_background.dart';
@@ -87,22 +89,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             height: itemSize - 20,
                             child: GestureDetector(
                               onTap: () {
-                                int page =
-                                    GetStorage().read(savedPage).toString() == 'null'
-                                        ? 0
-                                        : GetStorage().read(savedPage);
-                                Locale loca = Get.locale!;
-                                Widget destination;
-                                if (loca.languageCode == 'ar') {
-                                  destination = const HomeSuraScreen();
-                                } else {
-                                  destination = const HomeSuraScreen();
-                                }
-                                // ShortExplanationIndex();
-                                // Get.to(() => destination);
-                                Navigator.of(
-                                  context,
-                                ).push(MaterialPageRoute(builder: (_) => destination));
+                                Get.toNamed(ChatScreen.id);
                               },
                             ),
                           ),
@@ -188,13 +175,22 @@ class _IntroScreenState extends State<IntroScreen> {
                           ),
                         ),
                         Positioned(
-                          top: itemSize,
-                          bottom: itemSize,
-                          left: itemSize,
-                          child: SizedBox(
-                            width: itemSize - 20,
+                          top: itemSize + 5,
+                          bottom: itemSize + 5,
+                          left: itemSize - 20,
+                          right: itemSize - 20,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              // color: Colors.red.withOpacity(0.3),
+                              shape: BoxShape.circle,
+                            ),
+                            width: itemSize,
                             height: itemSize - 20,
-                            child: GestureDetector(onTap: () {}),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(HomeSuraScreen.id);
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -361,6 +357,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       bottom: itemSize,
                       left: itemSize,
                       child: SizedBox(
+                        // color: Colors.red.withOpacity(0.5),
                         width: itemSize - 20,
                         height: itemSize - 20,
                         child: GestureDetector(onTap: () => print('Quraaan')),
@@ -378,6 +375,7 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   String _centerView() {
+    // return 'assets/images/center_view.png';
     String path = '';
     switch (GetStorage().read(language)) {
       case 'ar':
@@ -417,9 +415,7 @@ class QuestionAndResearchWidget extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  // Get.toNamed(CompetitionsScreen.id);
-                  // Navigator.of(context).pushNamed(CompetitionsScreen.id);
-                  Get.toNamed(ChatScreen.id);
+                  Get.toNamed(CompetitionsScreen.id);
                 },
                 child: Column(
                   children: [
@@ -427,8 +423,10 @@ class QuestionAndResearchWidget extends StatelessWidget {
                       height: 50,
                       width: 50,
                       alignment: Alignment.center,
-                      child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
+                      // child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
+                      child: Image.asset(AssetsData.search, fit: BoxFit.cover),
                     ),
+                    SizedBox(height: 5),
                     const ArabicText('أسئلة تحتاج الي اجابة', color: Colors.white, fontSize: 10),
                   ],
                 ),
@@ -455,6 +453,7 @@ class QuestionAndResearchWidget extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Image.asset("assets/images/research_icon.png", fit: BoxFit.cover),
                     ),
+                    SizedBox(height: 5),
                     const ArabicText("رفع بحث", color: Colors.white, fontSize: 10),
                   ],
                 ),
