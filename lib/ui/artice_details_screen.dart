@@ -64,10 +64,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
           articleModel = value;
           pr(articleModel, '$t - articleModel');
           _downloadLinkController
-              .getDownloadlink(
-                downloadLinkType: DownloadLinkType.article,
-                id: articleModel?.id.toString() ?? '',
-              )
+              .getDownloadlink(downloadLinkType: DownloadLinkType.article, id: articleModel?.id.toString() ?? '')
               .then((value) {
                 pr(value, '$t - downloadLink');
                 return downloadLink = value;
@@ -116,8 +113,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                             onPressed: () {
                               String shareContent = ' ${articleModel?.name ?? ''}';
                               shareContent = '$shareContent\n-------------------------';
-                              shareContent =
-                                  '$shareContent\n${articleModel?.descriptionWithNoTags() ?? ''}';
+                              shareContent = '$shareContent\n${articleModel?.descriptionWithNoTags() ?? ''}';
                               Share.share(shareContent, subject: ' ${articleModel?.name ?? ''}');
                             },
                             icon: const Icon(Icons.share, color: primaryColor),
@@ -164,8 +160,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                                                   fontWeight: FontWeight.normal,
                                                   color: Colors.black,
                                                   fontSize:
-                                                      Get.find<SettingsController>().fontTypeEnum ==
-                                                              FontType.normal
+                                                      Get.find<SettingsController>().fontTypeEnum == FontType.normal
                                                           ? 14
                                                           : 18,
                                                   fontFamily: 'Almarai',
@@ -238,11 +233,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                         GetBuilder<ArticlesDetailsController>(
                           builder: (_) {
                             return Visibility(
-                              visible:
-                                  pr(
-                                    ArticleDetailsData.relatedArticles,
-                                    'test data in view',
-                                  ).isNotEmpty,
+                              visible: ArticleDetailsData.relatedArticles.isNotEmpty,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -250,10 +241,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       'read_also'.tr,
-                                      style: const TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: "Almarai",
-                                      ),
+                                      style: const TextStyle(color: primaryColor, fontFamily: "Almarai"),
                                     ),
                                   ),
                                   Container(
@@ -271,8 +259,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                                             Get.to(
                                               const ArticleDetailsScreen(),
                                               transition: Transition.fade,
-                                              arguments:
-                                                  ArticleDetailsData.relatedArticles[index].id,
+                                              arguments: ArticleDetailsData.relatedArticles[index].id,
                                               preventDuplicates: false,
                                             );
                                           },
@@ -284,10 +271,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                                             elevation: 2,
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 10,
-                                              horizontal: 15,
-                                            ),
+                                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                                             child: Text(
                                               ArticleDetailsData.relatedArticles[index].name,
                                               style: const TextStyle(fontFamily: 'Almarai'),

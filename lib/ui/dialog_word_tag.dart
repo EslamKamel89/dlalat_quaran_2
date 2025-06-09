@@ -20,8 +20,6 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../widgets/video_item_dialog.dart';
-
 class DialogWordTag extends StatefulWidget {
   final String tagId;
   final String wordId;
@@ -59,10 +57,7 @@ class _DialogWordTagState extends State<DialogWordTag> {
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Container(
           padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-          ),
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
           margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
           child: GetBuilder<GetTagController>(
             builder: (_) {
@@ -87,11 +82,7 @@ class _DialogWordTagState extends State<DialogWordTag> {
                       const Icon(null),
                     ],
                   ),
-                  Container(
-                    color: Colors.grey,
-                    height: .5,
-                    margin: const EdgeInsets.only(top: 15, bottom: 15),
-                  ),
+                  Container(color: Colors.grey, height: .5, margin: const EdgeInsets.only(top: 15, bottom: 15)),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: IconButton(
@@ -141,8 +132,7 @@ class _DialogWordTagState extends State<DialogWordTag> {
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.black,
                                                 fontSize: calcFontSize(
-                                                  Get.find<SettingsController>().fontTypeEnum ==
-                                                          FontType.normal
+                                                  Get.find<SettingsController>().fontTypeEnum == FontType.normal
                                                       ? 14
                                                       : 18,
                                                 ),
@@ -163,48 +153,44 @@ class _DialogWordTagState extends State<DialogWordTag> {
                           ),
                         ),
                       )
-                      : Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          children:
-                              _dialogController.videoModels.map((e) {
-                                // e.name = _dialogController.wordName.value;
-                                return VideoItemDialog(videoModel: e);
-                              }).toList(),
-                        ),
-                      ),
+                      : SizedBox(),
+                  // : Expanded(
+                  //   child: GridView.count(
+                  //     crossAxisCount: 2,
+                  //     children:
+                  //         _dialogController.videoModels.map((e) {
+                  //           // e.name = _dialogController.wordName.value;
+                  //           return VideoItemDialog(videoModel: e);
+                  //         }).toList(),
+                  //   ),
                   // ),
-                  Obx(
-                    () =>
-                        _dialogController.videoModels.isNotEmpty &&
-                                _dialogController.description.value != 'null' &&
-                                _dialogController.description.value != ''
-                            ? SizedBox(
-                              height: 170,
-                              child: ListView.builder(
-                                itemBuilder: (context, index) {
-                                  _dialogController.videoModels[index].name =
-                                      _dialogController.wordName.value;
-                                  return VideoItemDialog(
-                                    videoModel: _dialogController.videoModels[index],
-                                  );
-                                },
-                                itemCount: _dialogController.videoModels.length,
-                                scrollDirection: Axis.horizontal,
-                              ),
-                            )
-                            : const SizedBox(),
-                  ),
+
+                  // ),
+                  // Obx(
+                  //   () =>
+                  //       _dialogController.videoModels.isNotEmpty &&
+                  //               _dialogController.description.value != 'null' &&
+                  //               _dialogController.description.value != ''
+                  //           ? SizedBox(
+                  //             height: 170,
+                  //             child: ListView.builder(
+                  //               itemBuilder: (context, index) {
+                  //                 _dialogController.videoModels[index].name = _dialogController.wordName.value;
+                  //                 return VideoItemDialog(videoModel: _dialogController.videoModels[index]);
+                  //               },
+                  //               itemCount: _dialogController.videoModels.length,
+                  //               scrollDirection: Axis.horizontal,
+                  //             ),
+                  //           )
+                  //           : const SizedBox(),
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Spacer(),
                       PrimaryButton(
                         onPressed: () {
-                          Get.toNamed(
-                            AddCommentView.id,
-                            arguments: {"id": widget.tagId, 'commentType': 'tag'},
-                          );
+                          Get.toNamed(AddCommentView.id, arguments: {"id": widget.tagId, 'commentType': 'tag'});
                         },
                         borderRadius: 5,
                         child: Text(
@@ -259,10 +245,7 @@ class _DialogWordTagState extends State<DialogWordTag> {
         tagModel = value;
         pr(tagModel, '$t - tagModel');
         _downloadLinkController
-            .getDownloadlink(
-              downloadLinkType: DownloadLinkType.tag,
-              id: tagModel?.id.toString() ?? '',
-            )
+            .getDownloadlink(downloadLinkType: DownloadLinkType.tag, id: tagModel?.id.toString() ?? '')
             .then((value) {
               pr(value, '$t - downloadLink');
               return downloadLink = value;

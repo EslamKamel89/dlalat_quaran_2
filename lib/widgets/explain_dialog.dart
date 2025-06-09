@@ -9,7 +9,6 @@ import 'package:dlalat_quaran_new/db/database_helper.dart';
 import 'package:dlalat_quaran_new/ui/add_comment.dart';
 import 'package:dlalat_quaran_new/ui/chat/helpers/clean_reply.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
-import 'package:dlalat_quaran_new/ui/video_player_screen.dart';
 import 'package:dlalat_quaran_new/utils/calc_font_size.dart';
 import 'package:dlalat_quaran_new/utils/colors.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
@@ -82,19 +81,13 @@ class _ExplainDialogState extends State<ExplainDialog> {
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: Container(
             padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-            ),
+            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
             margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
             child: Column(
               children: [
                 Row(
                   children: [
-                    GestureDetector(
-                      child: const Icon(Icons.arrow_back_outlined),
-                      onTap: () => Get.back(),
-                    ),
+                    GestureDetector(child: const Icon(Icons.arrow_back_outlined), onTap: () => Get.back()),
                     Expanded(
                       child: Text(
                         // 'aya_explanation'.tr,
@@ -114,11 +107,7 @@ class _ExplainDialogState extends State<ExplainDialog> {
                     const Icon(null),
                   ],
                 ),
-                Container(
-                  color: Colors.grey,
-                  height: .7,
-                  margin: const EdgeInsets.only(top: 15, bottom: 15),
-                ),
+                Container(color: Colors.grey, height: .7, margin: const EdgeInsets.only(top: 15, bottom: 15)),
                 const SizedBox(height: 5),
                 Obx(
                   () => Column(
@@ -131,11 +120,7 @@ class _ExplainDialogState extends State<ExplainDialog> {
                               ? _dialogController.ayaText.value
                               : '',
                           textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontFamily: "me_quran",
-                            color: primaryColor,
-                            fontSize: calcFontSize(15),
-                          ),
+                          style: TextStyle(fontFamily: "me_quran", color: primaryColor, fontSize: calcFontSize(15)),
                         ),
                       ),
                       Align(
@@ -207,10 +192,7 @@ class _ExplainDialogState extends State<ExplainDialog> {
                                             fontWeight: FontWeight.normal,
                                             color: Colors.black,
                                             fontSize: calcFontSize(
-                                              Get.find<SettingsController>().fontTypeEnum ==
-                                                      FontType.normal
-                                                  ? 14
-                                                  : 18,
+                                              Get.find<SettingsController>().fontTypeEnum == FontType.normal ? 14 : 18,
                                             ),
                                             fontFamily: 'Almarai',
                                           ),
@@ -240,9 +222,7 @@ class _ExplainDialogState extends State<ExplainDialog> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueGrey,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                             ),
                             onPressed: widget.playerFunction,
                             child: Row(
@@ -258,33 +238,34 @@ class _ExplainDialogState extends State<ExplainDialog> {
                       ),
                     ),
                     const SizedBox(width: 20),
-                    Expanded(
-                      child: SizedBox(
-                        height: 55,
-                        child: Obx(
-                          () => Visibility(
-                            visible: _dialogController.videoUrl.value.toLowerCase() != 'null',
-                            child: PrimaryButton(
-                              onPressed:
-                                  () => Get.to(
-                                    () => VideoPlayerScreen(
-                                      videoId: _dialogController.videoUrl.value,
-                                    ),
-                                  ),
-                              borderRadius: 10,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons.play_circle_fill),
-                                  const SizedBox(width: 7),
-                                  AlMaraiText(0, 'video'.tr),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+
+                    // Expanded(
+                    //   child: SizedBox(
+                    //     height: 55,
+                    //     child: Obx(
+                    //       () => Visibility(
+                    //         visible: _dialogController.videoUrl.value.toLowerCase() != 'null',
+                    //         child: PrimaryButton(
+                    //           onPressed:
+                    //               () => Get.to(
+                    //                 () => VideoPlayerScreen(
+                    //                   videoId: _dialogController.videoUrl.value,
+                    //                 ),
+                    //               ),
+                    //           borderRadius: 10,
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: [
+                    //               const Icon(Icons.play_circle_fill),
+                    //               const SizedBox(width: 7),
+                    //               AlMaraiText(0, 'video'.tr),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 Row(
@@ -293,10 +274,7 @@ class _ExplainDialogState extends State<ExplainDialog> {
                     const Spacer(),
                     PrimaryButton(
                       onPressed: () {
-                        Get.toNamed(
-                          AddCommentView.id,
-                          arguments: {"id": widget.ayaKey, 'commentType': 'ayah'},
-                        );
+                        Get.toNamed(AddCommentView.id, arguments: {"id": widget.ayaKey, 'commentType': 'ayah'});
                       },
                       borderRadius: 5,
                       child: Text(

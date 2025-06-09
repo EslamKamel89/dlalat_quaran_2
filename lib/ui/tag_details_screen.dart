@@ -56,10 +56,7 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
           tagModel = value;
           pr(tagModel, '$t - tagModel');
           _downloadLinkController
-              .getDownloadlink(
-                downloadLinkType: DownloadLinkType.tag,
-                id: tagModel?.id.toString() ?? '',
-              )
+              .getDownloadlink(downloadLinkType: DownloadLinkType.tag, id: tagModel?.id.toString() ?? '')
               .then((value) {
                 pr(value, '$t - downloadLink');
                 return downloadLink = value;
@@ -116,8 +113,7 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
                                 onPressed: () {
                                   String shareContent = 'شرح الكلمة الدلالية: ';
                                   shareContent = '$shareContent ${tagModel?.name() ?? ''}';
-                                  shareContent =
-                                      '$shareContent\n${tagModel?.descriptionWithNoTags() ?? ''}';
+                                  shareContent = '$shareContent\n${tagModel?.descriptionWithNoTags() ?? ''}';
                                   Share.share(shareContent, subject: tagModel?.name() ?? '');
                                 },
                                 icon: const Icon(Icons.share, color: primaryColor),
@@ -195,8 +191,7 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.black,
                                                 fontSize:
-                                                    Get.find<SettingsController>().fontTypeEnum ==
-                                                            FontType.normal
+                                                    Get.find<SettingsController>().fontTypeEnum == FontType.normal
                                                         ? 14
                                                         : 18,
                                                 fontFamily: 'Almarai',
@@ -229,10 +224,7 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
                           const Spacer(),
                           PrimaryButton(
                             onPressed: () {
-                              Get.toNamed(
-                                AddCommentView.id,
-                                arguments: {"id": tagModel?.id, 'commentType': 'tag'},
-                              );
+                              Get.toNamed(AddCommentView.id, arguments: {"id": tagModel?.id, 'commentType': 'tag'});
                             },
                             borderRadius: 5,
                             child: Text(
@@ -264,10 +256,7 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       'read_also'.tr,
-                                      style: const TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: "Almarai",
-                                      ),
+                                      style: const TextStyle(color: primaryColor, fontFamily: "Almarai"),
                                     ),
                                   ),
                                   Container(
@@ -298,10 +287,7 @@ class _TagDetailsScreenState extends State<TagDetailsScreen> {
                                             elevation: 2,
                                           ),
                                           child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                              vertical: 5,
-                                            ),
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                             child: Text(
                                               TagDetailsData.relatedTags[index].name(),
                                               style: const TextStyle(fontFamily: 'Almarai'),
@@ -337,10 +323,7 @@ class EvidenceDetailsBody extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.all(8),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
+      decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Column(
         children: [
           Expanded(
@@ -358,28 +341,29 @@ class EvidenceDetailsBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          SizedBox(
-            width: 100,
-            height: 45,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: primaryColor,
-                padding: EdgeInsets.zero,
-                elevation: 2,
-              ),
-              onPressed: () => print(''), // Video Click
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(Icons.play_circle_fill, size: 20),
-                  SizedBox(width: 5),
-                  Text('فيديو', style: TextStyle(fontFamily: 'Almarai')),
-                ],
-              ),
-            ),
-          ), // Video Button
+
+          // SizedBox(
+          //   width: 100,
+          //   height: 45,
+          //   child: ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //       foregroundColor: Colors.white,
+          //       backgroundColor: primaryColor,
+          //       padding: EdgeInsets.zero,
+          //       elevation: 2,
+          //     ),
+          //     onPressed: () => print(''), // Video Click
+          //     child: const Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Icon(Icons.play_circle_fill, size: 20),
+          //         SizedBox(width: 5),
+          //         Text('فيديو', style: TextStyle(fontFamily: 'Almarai')),
+          //       ],
+          //     ),
+          //   ),
+          // ), // Video Button
         ],
       ),
     );
