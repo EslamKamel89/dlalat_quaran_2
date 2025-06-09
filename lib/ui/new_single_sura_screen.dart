@@ -92,22 +92,12 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
       wordsId = wordTagController.getWordIds(pageLines: pageLines);
       wordTagController.geWordTagsMap(wordsId: wordsId).then((value) => wordTagMap = value);
       GetStorage().write('${widget.page}Full', pageLines);
-      juz = await DataBaseHelper.dataBaseInstance().getJuz(
-        pageLines[0][0].ayaNo!,
-        int.parse(pageLines[0][0].sura!),
-      );
-      suraName = await DataBaseHelper.dataBaseInstance().getSuraByPage(
-        int.parse(pageLines[0][0].sura!),
-      );
+      juz = await DataBaseHelper.dataBaseInstance().getJuz(pageLines[0][0].ayaNo!, int.parse(pageLines[0][0].sura!));
+      suraName = await DataBaseHelper.dataBaseInstance().getSuraByPage(int.parse(pageLines[0][0].sura!));
     } else {
       pageLines = GetStorage().read('${widget.page}Full');
-      suraName = await DataBaseHelper.dataBaseInstance().getSuraByPage(
-        int.parse(pageLines[0][0].sura!),
-      );
-      juz = await DataBaseHelper.dataBaseInstance().getJuz(
-        pageLines[0][0].ayaNo!,
-        int.parse(pageLines[0][0].sura!),
-      );
+      suraName = await DataBaseHelper.dataBaseInstance().getSuraByPage(int.parse(pageLines[0][0].sura!));
+      juz = await DataBaseHelper.dataBaseInstance().getJuz(pageLines[0][0].ayaNo!, int.parse(pageLines[0][0].sura!));
     }
     // log('JJuze name ${juzArName(juz)}');
     Future.delayed(Duration.zero, () async {
@@ -131,43 +121,38 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
           widgets.add(
             !isSmallPage()
                 ? Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/sura_title_bg.png',
-                        height: isSmallScreen ? 25 : 30,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                      ),
-                      Center(
-                        child: Text(
-                          pageLines[x][j].suraName!,
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                            fontFamily: 'Mcs',
-                            color: normalFontColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: isSmallScreen ? 15 : 18,
-                          ),
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/sura_title_bg.png',
+                      height: isSmallScreen ? 25 : 30,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                    ),
+                    Center(
+                      child: Text(
+                        pageLines[x][j].suraName!,
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                          fontFamily: 'Mcs',
+                          color: normalFontColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: isSmallScreen ? 15 : 18,
                         ),
                       ),
-                    ],
-                  )
+                    ),
+                  ],
+                )
                 : const SizedBox(),
           );
 
           if (pageLines[x][j].sura != "9" && pageLines[x][j].sura != "1") {
             widgets.add(
-              Image.asset(
-                "assets/images/in_the_name.png",
-                color: normalFontColor,
-                height: isSmallScreen ? 20 : 25,
-              ),
+              Image.asset("assets/images/in_the_name.png", color: normalFontColor, height: isSmallScreen ? 20 : 25),
             );
           }
         }
-        var fontSize =
-            widget.page == 1 || widget.page == 2 ? containerHeight / 24 : containerHeight / 26;
+        var fontSize = widget.page == 1 || widget.page == 2 ? containerHeight / 24 : containerHeight / 26;
         if (pageLines[x][j].word_ar! != ' ') {
           // if (isNumeric(pageLines[x][j].word_ar!)) {
           //   children.add(AyaNo(pageLines[x][j].word_ar!));
@@ -279,36 +264,33 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
 
       widgets.add(
         Row(
-          mainAxisAlignment:
-              pageLines.length > 9 ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
+          mainAxisAlignment: pageLines.length > 9 ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
           children: children,
         ),
       );
     }
 
-    return Column(
-      mainAxisAlignment: widget.page == 1 || widget.page == 2
-          ? MainAxisAlignment.center
-          : MainAxisAlignment.spaceEvenly,
-      // crossAxisAlignment: CrossAxisAlignment.,
-      children: widgets,
+    return OverflowBox(
+      maxHeight: Get.width < 600 ? null : double.infinity,
+      child: Column(
+        mainAxisAlignment:
+            widget.page == 1 || widget.page == 2 ? MainAxisAlignment.center : MainAxisAlignment.spaceEvenly,
+        // crossAxisAlignment: CrossAxisAlignment.,
+        children: widgets,
+      ),
     );
   }
 
   void listenSound(int x, int j) async {
     await audioPlayer.stop();
     playerSuraId.value = int.parse(pageLines[x][j].sura!);
-    playerSuraCount.value = await DataBaseHelper.dataBaseInstance().suraCount(
-      int.parse(pageLines[x][j].sura!),
-    );
+    playerSuraCount.value = await DataBaseHelper.dataBaseInstance().suraCount(int.parse(pageLines[x][j].sura!));
     // playerSuraId.value = int.parse(pageLines[x][j].sura!);
 
-    selectAyaNo.value = selectAyaNo.value == pageLines[x][j].ayaNo!.toString()
-        ? "0"
-        : pageLines[x][j].ayaNo!.toString();
+    selectAyaNo.value =
+        selectAyaNo.value == pageLines[x][j].ayaNo!.toString() ? "0" : pageLines[x][j].ayaNo!.toString();
 
-    selectedAyaId.value =
-        selectedAyaId.value == pageLines[x][j].ayaId! ? "0" : pageLines[x][j].ayaId!;
+    selectedAyaId.value = selectedAyaId.value == pageLines[x][j].ayaId! ? "0" : pageLines[x][j].ayaId!;
     var sharedPref = await SharedPreferences.getInstance();
     var selectedReciterId = sharedPref.getString(reciterKey) ?? "1";
     String fullPath = await AudioFolders().generatePath(
@@ -344,13 +326,13 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
     // log("NewSingleSuraScreenLogME");
     return Container(
       color: Colors.white,
-      height: double.infinity,
+      // height: double.infinity,
       child: Column(
         children: [
           Container(
             // color: Colors.yellow[50],
             padding: const EdgeInsets.only(left: 15, right: 15),
-            height: isSmallScreen ? 22 : 30,
+            // height: isSmallScreen ? 22 : 30,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -374,8 +356,8 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
                       Image.asset('assets/icons/page_bg.png', height: isSmallScreen ? 25 : 22),
                       Center(
                         child:
-                            // Text('${screenController.newPage.value}'))
-                            Text(
+                        // Text('${screenController.newPage.value}'))
+                        Text(
                           _convertToArabicNumber(widget.page),
                           style: TextStyle(
                             fontFamily: 'kitab',
@@ -420,10 +402,7 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
               margin: const EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
                 color: bgColor,
-                border: Border.all(
-                  color: isSmallPage() ? Colors.transparent : Colors.black,
-                  width: 1,
-                ),
+                border: Border.all(color: isSmallPage() ? Colors.transparent : Colors.black, width: 1),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Stack(
@@ -460,10 +439,7 @@ class NewSingleSuraScreenState extends State<NewSingleSuraScreen> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: isSmallPage() ? 12 : 0),
-                    child: columnWidget(context),
-                  ),
+                  Container(margin: EdgeInsets.only(top: isSmallPage() ? 12 : 0), child: columnWidget(context)),
                 ],
               ),
             ),

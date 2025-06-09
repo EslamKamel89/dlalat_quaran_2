@@ -30,11 +30,12 @@ class _SearchAyahcreenState extends State<SearchAyahcreen> {
   @override
   Widget build(BuildContext context) {
     // _editController.text = searchController.searchKey;
-    return GetBuilder<SearchAyahController>(builder: (_) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            Visibility(
+    return GetBuilder<SearchAyahController>(
+      builder: (_) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Visibility(
                 visible:
                     searchAyahController.selectedSuraModel != null && searchAyahController.selectedAyaModel != null,
                 child: Padding(
@@ -51,28 +52,28 @@ class _SearchAyahcreenState extends State<SearchAyahcreen> {
                       child: const DefaultText('بحث أخر', color: Colors.white),
                     ),
                   ),
-                )),
-            Visibility(
-              visible: searchAyahController.selectedSuraModel == null || searchAyahController.selectedAyaModel == null,
-              child: Column(
-                children: [
-                  const SuraSearchableDropdown(),
-                  Visibility(
-                      visible: searchAyahController.selectedSuraModel != null, child: const AyaSearchableDropdown()),
-                ],
+                ),
               ),
-            ),
-            searchAyahController.selectedAyaModel != null
-                ? Column(
+              Visibility(
+                visible:
+                    searchAyahController.selectedSuraModel == null || searchAyahController.selectedAyaModel == null,
+                child: Column(
+                  children: [
+                    const SuraSearchableDropdown(),
+                    Visibility(
+                      visible: searchAyahController.selectedSuraModel != null,
+                      child: const AyaSearchableDropdown(),
+                    ),
+                  ],
+                ),
+              ),
+              searchAyahController.selectedAyaModel != null
+                  ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: DefaultText(
-                          'نتيجة البحث',
-                          fontSize: 20,
-                          color: primaryColor,
-                        ),
+                        child: DefaultText('نتيجة البحث', fontSize: 20, color: primaryColor),
                       ),
                       const SizedBox(height: 10),
                       Padding(
@@ -81,28 +82,32 @@ class _SearchAyahcreenState extends State<SearchAyahcreen> {
                       ),
                       const SizedBox(height: 25),
                       SizedBox(
-                          width: double.infinity,
-                          height: 650,
-                          child: NewSingleSuraScreen(searchAyahController.selectedAyaModel?.page ?? 1)),
+                        width: double.infinity,
+                        // height: context.height * 0.7,
+                        child: NewSingleSuraScreen(searchAyahController.selectedAyaModel?.page ?? 1),
+                      ),
+                      SizedBox(height: 10),
                       Align(
                         alignment: Alignment.center,
                         child: PrimaryButton(
-                            onPressed: () {
-                              Get.to(const SuraScreen(),
-                                  arguments: {'page': '${searchAyahController.selectedAyaModel?.page ?? 1}'});
-                            },
-                            borderRadius: 10,
-                            child: const DefaultText(
-                              'الذهاب ألي ألاية',
-                              color: Colors.white,
-                            )),
+                          onPressed: () {
+                            Get.to(
+                              const SuraScreen(),
+                              arguments: {'page': '${searchAyahController.selectedAyaModel?.page ?? 1}'},
+                            );
+                          },
+                          borderRadius: 10,
+                          child: const DefaultText('الذهاب ألي ألاية', color: Colors.white),
+                        ),
                       ),
+                      SizedBox(height: 30),
                     ],
                   )
-                : const SizedBox()
-          ],
-        ),
-      );
-    });
+                  : const SizedBox(),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
