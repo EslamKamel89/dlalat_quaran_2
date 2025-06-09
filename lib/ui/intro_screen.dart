@@ -3,13 +3,11 @@ import 'package:dlalat_quaran_new/controllers/similar_word_controller.dart';
 import 'package:dlalat_quaran_new/ui/add_research.dart';
 import 'package:dlalat_quaran_new/ui/articles_screen/articles_screen.dart';
 import 'package:dlalat_quaran_new/ui/chat/chat_screen.dart';
-import 'package:dlalat_quaran_new/ui/competition_screen.dart';
 import 'package:dlalat_quaran_new/ui/home_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/read_full_sura_screen/read_full_sura_screen.dart';
 import 'package:dlalat_quaran_new/ui/setting_screen.dart';
 import 'package:dlalat_quaran_new/ui/tags_screen/tags_screen.dart';
 import 'package:dlalat_quaran_new/ui/video_screen/videos_screen.dart';
-import 'package:dlalat_quaran_new/utils/assets.dart';
 import 'package:dlalat_quaran_new/utils/constants.dart';
 import 'package:dlalat_quaran_new/utils/text_styles.dart';
 import 'package:dlalat_quaran_new/widgets/splash_background.dart';
@@ -58,20 +56,12 @@ class _IntroScreenState extends State<IntroScreen> {
                     'app_name'.tr,
                     // '',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: scHeight / 40,
-                      fontFamily: 'Almarai',
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: scHeight / 40, fontFamily: 'Almarai'),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'introText'.tr,
-                    style: TextStyle(
-                      color: const Color(0xFFF5B45E),
-                      fontSize: scHeight / 70,
-                      fontFamily: 'Almarai',
-                    ),
+                    style: TextStyle(color: const Color(0xFFF5B45E), fontSize: scHeight / 70, fontFamily: 'Almarai'),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 70),
@@ -89,7 +79,8 @@ class _IntroScreenState extends State<IntroScreen> {
                             height: itemSize - 20,
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(ChatScreen.id);
+                                // Get.toNamed(ChatScreen.id);
+                                Get.toNamed(HomeSuraScreen.id);
                               },
                             ),
                           ),
@@ -120,9 +111,8 @@ class _IntroScreenState extends State<IntroScreen> {
                             child: GestureDetector(
                               // onTap: () => Get.to(const TagsScreen()),
                               onTap:
-                                  () => Navigator.of(
-                                    context,
-                                  ).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
+                                  () =>
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
                             ),
                           ),
                         ),
@@ -136,9 +126,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             child: GestureDetector(
                               // onTap: () => Get.to(SettingScreen()),
                               onTap:
-                                  () => Navigator.of(
-                                    context,
-                                  ).push(MaterialPageRoute(builder: (_) => SettingScreen())),
+                                  () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => SettingScreen())),
                             ),
                           ),
                         ),
@@ -188,7 +176,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             height: itemSize - 20,
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(HomeSuraScreen.id);
+                                // Get.toNamed(HomeSuraScreen.id);
                               },
                             ),
                           ),
@@ -217,20 +205,12 @@ class _IntroScreenState extends State<IntroScreen> {
                   'app_name'.tr,
                   // '',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: scHeight / 40,
-                    fontFamily: 'Almarai',
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: scHeight / 40, fontFamily: 'Almarai'),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'introText'.tr,
-                  style: TextStyle(
-                    color: const Color(0xFFF5B45E),
-                    fontSize: scHeight / 70,
-                    fontFamily: 'Almarai',
-                  ),
+                  style: TextStyle(color: const Color(0xFFF5B45E), fontSize: scHeight / 70, fontFamily: 'Almarai'),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: scHeight / 20),
@@ -249,9 +229,7 @@ class _IntroScreenState extends State<IntroScreen> {
                           child: GestureDetector(
                             onTap: () {
                               int page =
-                                  GetStorage().read(savedPage).toString() == 'null'
-                                      ? 0
-                                      : GetStorage().read(savedPage);
+                                  GetStorage().read(savedPage).toString() == 'null' ? 0 : GetStorage().read(savedPage);
                               Locale loca = Get.locale!;
                               Widget destination;
                               if (loca.languageCode == 'ar') {
@@ -261,9 +239,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               }
                               // ShortExplanationIndex();
                               // Get.to(() => destination);
-                              Navigator.of(
-                                context,
-                              ).push(MaterialPageRoute(builder: (_) => destination));
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => destination));
                             },
                           ),
                         ),
@@ -279,9 +255,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         child: GestureDetector(
                           // onTap: () => Get.to(const ArticlesScreen()),
                           onTap:
-                              () => Navigator.of(
-                                context,
-                              ).push(MaterialPageRoute(builder: (_) => const ArticlesScreen())),
+                              () =>
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ArticlesScreen())),
                         ),
                       ),
                     ),
@@ -295,9 +270,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         child: GestureDetector(
                           // onTap: () => Get.to(const TagsScreen()),
                           onTap:
-                              () => Navigator.of(
-                                context,
-                              ).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
+                              () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const TagsScreen())),
                         ),
                       ),
                     ),
@@ -312,10 +285,7 @@ class _IntroScreenState extends State<IntroScreen> {
                           height: 10.vh,
                           child: GestureDetector(
                             // onTap: () => Get.to(SettingScreen()),
-                            onTap:
-                                () => Navigator.of(
-                                  context,
-                                ).push(MaterialPageRoute(builder: (_) => SettingScreen())),
+                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => SettingScreen())),
                           ),
                         ),
                       ),
@@ -346,9 +316,7 @@ class _IntroScreenState extends State<IntroScreen> {
                           // onTap: () => Get.to(VideoCategoriesScreen(), transition: Transition.fade),
                           // onTap: () => Get.to(const VideosScreen(), transition: Transition.fade),
                           onTap:
-                              () => Navigator.of(
-                                context,
-                              ).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
+                              () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
                         ),
                       ),
                     ),
@@ -375,25 +343,25 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   String _centerView() {
-    // return 'assets/images/center_view.png';
-    String path = '';
-    switch (GetStorage().read(language)) {
-      case 'ar':
-        path = 'assets/images/center_view.png';
-        break;
-      case 'en':
-        path = 'assets/images/center_view_en.png';
-        break;
-      case 'fr':
-        path = 'assets/images/center_view.png';
-        break;
-      case 'es':
-        path = 'assets/images/center_view.png';
-        break;
-      default:
-        path = 'assets/images/center_view.png';
-    }
-    return path;
+    return 'assets/images/center_view.png';
+    // String path = '';
+    // switch (GetStorage().read(language)) {
+    //   case 'ar':
+    //     path = 'assets/images/center_view.png';
+    //     break;
+    //   case 'en':
+    //     path = 'assets/images/center_view_en.png';
+    //     break;
+    //   case 'fr':
+    //     path = 'assets/images/center_view.png';
+    //     break;
+    //   case 'es':
+    //     path = 'assets/images/center_view.png';
+    //     break;
+    //   default:
+    //     path = 'assets/images/center_view.png';
+    // }
+    // return path;
   }
 }
 
@@ -415,7 +383,8 @@ class QuestionAndResearchWidget extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.toNamed(CompetitionsScreen.id);
+                  Get.toNamed(ChatScreen.id);
+                  // Get.toNamed(CompetitionsScreen.id);
                 },
                 child: Column(
                   children: [
@@ -423,8 +392,8 @@ class QuestionAndResearchWidget extends StatelessWidget {
                       height: 50,
                       width: 50,
                       alignment: Alignment.center,
-                      // child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
-                      child: Image.asset(AssetsData.search, fit: BoxFit.cover),
+                      child: Image.asset("assets/images/answer_icon.png", fit: BoxFit.cover),
+                      // child: Image.asset(AssetsData.search, fit: BoxFit.cover),
                     ),
                     SizedBox(height: 5),
                     const ArabicText('أسئلة تحتاج الي اجابة', color: Colors.white, fontSize: 10),
