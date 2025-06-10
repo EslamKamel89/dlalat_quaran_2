@@ -63,33 +63,34 @@ class SeriesArticlesWidgetState extends State<SeriesArticlesWidget> {
     });
     return GetBuilder<ArticlesSeriesController>(
       builder: (context) {
-        return ArticlesSeriesData.filteredList.isEmpty && _articlesController.responseState == ResponseState.loading
+        return ArticlesSeriesData.filteredList.isEmpty &&
+                _articlesController.responseState == ResponseState.loading
             ? const ArticlesWidgetLodingColumn()
             : ListView.builder(
-                // controller: _scrollController,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return Column(
-                      children: [
-                        SearchWidget(_searchController, null, () {
-                          _articlesController.search(_searchController.text.toString().toLowerCase());
-                        }),
-                        ArticlesSeriesData.filteredList.isEmpty
-                            ? const Center(child: DefaultText('لا يوجد بيانات'))
-                            : const SizedBox(),
-                      ],
-                    );
-                  }
-                  index = index - 1;
-                  if (index < ArticlesSeriesData.filteredList.length) {
-                    return SeriesArticleCardWidget(ArticlesSeriesData.filteredList[index]);
-                  }
-                  return _articlesController.responseState == ResponseState.loading
-                      ? const ArticlesWidgetLodingColumn()
-                      : const SizedBox();
-                },
-                itemCount: ArticlesSeriesData.filteredList.length + 2,
-              );
+              // controller: _scrollController,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return Column(
+                    children: [
+                      SearchWidget(_searchController, null, () {
+                        _articlesController.search(_searchController.text.toString().toLowerCase());
+                      }),
+                      ArticlesSeriesData.filteredList.isEmpty
+                          ? const Center(child: DefaultText('لا يوجد بيانات'))
+                          : const SizedBox(),
+                    ],
+                  );
+                }
+                index = index - 1;
+                if (index < ArticlesSeriesData.filteredList.length) {
+                  return SeriesArticleCardWidget(ArticlesSeriesData.filteredList[index]);
+                }
+                return _articlesController.responseState == ResponseState.loading
+                    ? const ArticlesWidgetLodingColumn()
+                    : const SizedBox();
+              },
+              itemCount: ArticlesSeriesData.filteredList.length + 2,
+            );
       },
     );
   }

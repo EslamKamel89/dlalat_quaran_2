@@ -71,7 +71,8 @@ class _NormalArticlesWidgetState extends State<NormalArticlesWidget> {
                   SearchWidget(_searchController, null, () {
                     _articlesController.search(_searchController.text.toString().toLowerCase());
                   }),
-                  ArticlesData.filteredList.isEmpty && _articlesController.responseState == ResponseState.success
+                  ArticlesData.filteredList.isEmpty &&
+                          _articlesController.responseState == ResponseState.success
                       ? const Center(child: DefaultText('لا يوجد بيانات'))
                       : const SizedBox(),
                 ],
