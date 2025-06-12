@@ -36,38 +36,37 @@ class _HomeSuraScreenState extends State<HomeSuraScreen> with SingleTickerProvid
   Widget build(BuildContext context) {
     // initScreenUtil(context);
     return Scaffold(
-        backgroundColor: lightGray,
-        appBar: QuranBar('short_explanation'.tr),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 5,
-            ),
-            TabBar(
-              indicatorColor: Colors.transparent,
-              tabs: [
-                TabButton(title: 'التفسير المختصر', selected: currentIndex == 0),
-                TabButton(title: 'بحث بالكلمات', selected: currentIndex == 1),
-                TabButton(title: "بحث بالأية", selected: currentIndex == 2),
-              ],
-              controller: _tabController!,
-              onTap: (value) {
-                log('New Value = $value');
-                currentIndex = value;
-                setState(() {});
-              },
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Expanded(
-                child: currentIndex == 0
+      backgroundColor: lightGray,
+      appBar: QuranBar('short_explanation'.tr),
+      body: Column(
+        children: [
+          const SizedBox(height: 5),
+          TabBar(
+            indicatorColor: Colors.transparent,
+            tabs: [
+              TabButton(title: 'التفسير المختصر', selected: currentIndex == 0),
+              TabButton(title: 'بحث بالكلمات', selected: currentIndex == 1),
+              TabButton(title: "بحث بالأية", selected: currentIndex == 2),
+            ],
+            controller: _tabController!,
+            onTap: (value) {
+              log('New Value = $value');
+              currentIndex = value;
+              setState(() {});
+            },
+          ),
+          const SizedBox(height: 5),
+          Expanded(
+            child:
+                currentIndex == 0
                     ? ShortExplanationIndex()
                     : currentIndex == 1
-                        ? SearchScreen()
-                        : const SearchAyahcreen())
-          ],
-        ));
+                    ? SearchScreen()
+                    : const SearchAyahcreen(),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -80,18 +79,17 @@ class TabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        alignment: Alignment.center,
-        height: 45,
-        decoration:
-            BoxDecoration(color: selected ? primaryColor2 : Colors.white, borderRadius: BorderRadius.circular(6)),
-        child: ArabicText(
-          title,
-          color: selected ? Colors.white : Colors.blueGrey,
-        )
-        // Text(
-        //   title,
-        //   style: TextStyle(color: selected ? Colors.white : Colors.blueGrey),
-        // ),
-        );
+      alignment: Alignment.center,
+      height: 45,
+      decoration: BoxDecoration(
+        color: selected ? primaryColor2 : Colors.white,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: ArabicText(title, color: selected ? Colors.white : Colors.blueGrey),
+      // Text(
+      //   title,
+      //   style: TextStyle(color: selected ? Colors.white : Colors.blueGrey),
+      // ),
+    );
   }
 }

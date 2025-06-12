@@ -60,17 +60,20 @@ class SearchResultScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Obx(() => _resultController.ayatList.isNotEmpty
-                ? ListView.builder(
-                    itemBuilder: (context, index) {
-                      var ayatList = _resultController.ayatList[index];
-                      // ayatList.searchKey = suraModel.searchKey!;
-                      return WordResultItem(ayatList);
-                    },
-                    itemCount: _resultController.ayatList.length,
-                  )
-                : const SizedBox()),
-          )
+            child: Obx(
+              () =>
+                  _resultController.ayatList.isNotEmpty
+                      ? ListView.builder(
+                        itemBuilder: (context, index) {
+                          var ayatList = _resultController.ayatList[index];
+                          // ayatList.searchKey = suraModel.searchKey!;
+                          return WordResultItem(ayatList);
+                        },
+                        itemCount: _resultController.ayatList.length,
+                      )
+                      : const SizedBox(),
+            ),
+          ),
         ],
       ),
     );
